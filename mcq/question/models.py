@@ -7,6 +7,9 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=200)
 
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     def __unicode__(self):
         return self.name
 
@@ -15,6 +18,9 @@ class Batch(models.Model):
     name = models.CharField(max_length=200)
     uploaded_on = models.DateTimeField(default=datetime.now)
     category = models.ForeignKey(Category)
+
+    class Meta:
+        verbose_name_plural = 'Batches'
 
     def __unicode__(self):
         return self.name
