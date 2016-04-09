@@ -17,6 +17,7 @@ class Category(models.Model):
 class Batch(models.Model):
     name = models.CharField(max_length=200)
     uploaded_on = models.DateTimeField(default=datetime.now)
+    question_file = models.FileField(upload_to='question_dir')
     category = models.ForeignKey(Category)
 
     class Meta:
