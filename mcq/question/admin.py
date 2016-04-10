@@ -3,14 +3,20 @@ from django.contrib import admin
 from question.models import Category, Batch, Question, Option
 
 
-@admin.register(Category, Question, Option)
+@admin.register(Category, Batch, Question, Option)
 class QuestionAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Batch)
-class BatchAdmin(admin.ModelAdmin):
-    exclude = ['uploaded_on']
+#@admin.register(Batch)
+#class BatchAdmin(admin.ModelAdmin):
+#    exclude = ['uploaded_on']
+#    form = BatchForm
+#
+#    def save_model(self, request, obj, form, change):
+#        questions = DictReader(obj.question_file)
+#        self.message_user(
+#            request, "File format is wrong", level=messages.ERROR)
 
 
 #class CategoryAdmin(admin.ModelAdmin):
