@@ -15,10 +15,6 @@ FIELD_NAMES = [
 
 
 class BatchForm(forms.ModelForm):
-    model = Batch
-    exclude = ['uploaded_on']
-
-    def clean_question_file(self):
-        if 'question_file' in self.cleaned_data:
-            questions = DictReader(self.cleaned_data['question_file'])
-        raise forms.ValidationError('no data')
+    class Meta:
+        model = Batch
+        exclude = ['uploaded_on']
