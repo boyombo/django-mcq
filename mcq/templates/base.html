@@ -69,6 +69,13 @@
     <!--HOME SECTION END-->
 
     <section id="search-domain" >
+        {% block messages %}
+        {% if messages %}
+                {% for message in messages %}
+                <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                {% endfor %}
+        {% endif %}
+        {% endblock messages %}
     {% block middle %}
         <div class="container">
             <div class="row">

@@ -1,5 +1,6 @@
 from csv import DictReader
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from question.forms import BatchForm
 from question.models import Batch, Question, Option
@@ -32,6 +33,7 @@ def new_batch(request):
                         opt_data.update({'correct': True})
                     opt = Option(**opt_data)
                     opt.save()
+            messages.info(request, 'Batch upload completed successfully')
             return redirect('new_batch')
         else:
             pass
