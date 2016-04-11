@@ -35,6 +35,7 @@ class Batch(models.Model):
 
     class Meta:
         verbose_name_plural = 'Batches'
+        unique_together = ('name', 'category')
 
     def __unicode__(self):
         return self.name
