@@ -3,3 +3,4 @@ Django==1.9.5
 pytest-django
 pytest>=2.5
 py>=1.4.29
+factory_boy
