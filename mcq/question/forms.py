@@ -5,6 +5,11 @@ from csv import DictReader
 
 
 class BatchForm(forms.ModelForm):
+    #name = forms.CharField(
+    #    widget=forms.TextInput(attrs={'class': 'form-control'}))
+    #category = forms.ModelChoiceField(
+    #    widget=forms.ChoiceInput(attr={'css': 'form-control'}))
+
     class Meta:
         model = Batch
         exclude = ['uploaded_on']
@@ -18,4 +23,5 @@ class BatchForm(forms.ModelForm):
             if set(FIELD_NAMES).difference(field_names):
                 raise forms.ValidationError("Some file headers are missing")
             #headers = fd.
-            return list(data)
+            #return list(data)
+            return self.cleaned_data['question_file']

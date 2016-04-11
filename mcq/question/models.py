@@ -3,14 +3,17 @@ from datetime import datetime
 
 from django.db import models
 
+QUESTION_NAME = 'QUESTION'
+CORRECT_NAME = 'CORRECT'
+
 FIELD_NAMES = [
-    'QUESTION',
-    'OPTION_A',
-    'OPTION_B',
-    'OPTION_C',
-    'OPTION_D',
-    'OPTION_E',
-    'CORRECT'
+    QUESTION_NAME,
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    CORRECT_NAME
 ]
 
 
@@ -46,7 +49,7 @@ class Question(models.Model):
 
 
 class Option(models.Model):
-    label = models.PositiveIntegerField()
+    label = models.CharField(max_length=50)
     text = models.CharField(max_length=250)
     correct = models.BooleanField()
     question = models.ForeignKey(Question, related_name='answers')
