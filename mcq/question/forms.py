@@ -1,17 +1,7 @@
 from django import forms
-from models import Batch
+from models import Batch, FIELD_NAMES
 
 from csv import DictReader
-
-FIELD_NAMES = [
-    'QUESTION',
-    'OPTION_A',
-    'OPTION_B',
-    'OPTION_C',
-    'OPTION_D',
-    'OPTION_E',
-    'CORRECT'
-]
 
 
 class BatchForm(forms.ModelForm):
@@ -26,6 +16,6 @@ class BatchForm(forms.ModelForm):
             data = DictReader(fd)
             field_names = data.fieldnames
             if set(FIELD_NAMES).difference(field_names):
-                raise forms.ValidationError("Some field names are missing")
+                raise forms.ValidationError("Some file headers are missing")
             #headers = fd.
             return list(data)

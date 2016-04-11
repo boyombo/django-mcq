@@ -2,7 +2,6 @@ from question.forms import BatchForm
 from core.tests import factories
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django import forms
 
 
 @pytest.mark.django_db
@@ -24,16 +23,15 @@ def test_upload_question_correct(suf, form_data):
 
 @pytest.mark.django_db
 def test_batch_file_header(form_data):
-    '''Validate that the headers for the file are correct'''
+    '''Validate that file contains all the required headers for the file'''
     data = 'QUESTION,OPTION_A,OPTION_B,OPTION_C,OPTION_D,OPTION_F,CORRECT\n'\
            'question1,one,two,three,four,five,A\n'
     suf = SimpleUploadedFile('questions.csv', data, content_type='text/csv')
 
     form = BatchForm(form_data, {'question_file': suf})
-    #import pdb;pdb.set_trace()
-    #with pytest.raises(forms.ValidationError):
-    #    form.is_valid()
+
     assert not form.is_valid()
+    assert 'Some file headers are missing' in form.errors['question_file']
 
 
 @pytest.fixture(scope='module')
