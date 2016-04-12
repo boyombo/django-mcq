@@ -19,7 +19,11 @@ class BatchForm(forms.ModelForm):
             fd = self.cleaned_data['question_file']
             #import pdb;pdb.set_trace()
             data = DictReader(fd)
-            field_names = data.fieldnames
+            try:
+                field_names = data.fieldnames
+            except:
+                raise forms.ValidationError(
+                    "The file is not in the correct format")
             if set(FIELD_NAMES).difference(field_names):
                 raise forms.ValidationError("Some file headers are missing")
             #headers = fd.
