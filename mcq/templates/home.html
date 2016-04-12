@@ -11,3 +11,10 @@
     </div>
 </div>
 {% endblock middle %}
+
+{% block extra-js %}
+<script type='text/javascript">
+$('.active-menu-item').removeAtrr('class', 'active-menu-item');
+$('#home-menu').attr('class', 'active-menu-item');
+</script>
+{% endblock extra-js %}

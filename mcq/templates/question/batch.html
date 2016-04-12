@@ -1,13 +1,5 @@
 {% extends "plain.html" %}
 
-{% block navigation %}
-<li><a href="{% url 'home' %}">HOME</a></li>
-<li><a href="{% url 'new_batch' %}" class="active-menu-item">BATCH</a></li>
-<li><a href="">ABOUT</a></li>
-<li><a href="">CONTACT</a></li>
-{% endblock navigation %}
-
-
     {% block pageheader %}
             <h3 >Upload Batch <i class="fa fa-angle-double-right "></i></h3>
     {% endblock pageheader %}
@@ -65,5 +57,9 @@
     <script type="text/javascript">
         $('#id_name').attr('class','form-control');
         $('#id_category').attr('class','form-control');
+
+        // Set active menu to batch
+        $('.active-menu-item').removeAttr('class','active-menu-item');
+        $('#batch-menu').attr('class','active-menu-item');
     </script>
     {% endblock extra-js %}
