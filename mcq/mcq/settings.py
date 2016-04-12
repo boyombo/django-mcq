@@ -132,3 +132,9 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+try:
+    from local_settings import MORE_APPS
+    INSTALLED_APPS += MORE_APPS
+except ImportError:
+    pass

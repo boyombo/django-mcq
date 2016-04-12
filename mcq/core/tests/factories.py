@@ -3,6 +3,7 @@ import factory.django
 import factory.fuzzy
 
 from question import models as question
+from exam import models as exam
 
 
 class Category(factory.django.DjangoModelFactory):
@@ -26,4 +27,11 @@ class Question(factory.django.DjangoModelFactory):
         model = question.Question
 
     text = factory.fuzzy.FuzzyText()
+    batch = factory.SubFactory('core.tests.factories.Batch')
+
+
+class Exam(factory.django.DjangoModelFactory):
+    class Meta:
+        model = exam.Exam
+
     batch = factory.SubFactory('core.tests.factories.Batch')

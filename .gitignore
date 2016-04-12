@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# local settings
+*/local_settings.py
+local_settings.py
+
 # media files
 media/
 
