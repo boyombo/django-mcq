@@ -13,7 +13,7 @@ class Exam(models.Model):
     batch = models.ForeignKey(Batch)
     start_at = models.DateTimeField(default=datetime.now)
     ended_at = models.DateTimeField(default=datetime.now)
-    status = models.PositiveIntegerField(choices=EXAM_STATUS)
+    status = models.PositiveIntegerField(choices=EXAM_STATUS, default=PENDING)
 
     def __unicode__(self):
         return unicode(self.batch)

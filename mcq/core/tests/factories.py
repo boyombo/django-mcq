@@ -19,3 +19,11 @@ class Batch(factory.django.DjangoModelFactory):
     name = factory.fuzzy.FuzzyText()
     question_file = factory.django.FileField()
     category = factory.SubFactory('core.tests.factories.Category')
+
+
+class Question(factory.django.DjangoModelFactory):
+    class Meta:
+        model = question.Question
+
+    text = factory.fuzzy.FuzzyText()
+    batch = factory.SubFactory('core.tests.factories.Batch')
