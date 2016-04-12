@@ -48,7 +48,7 @@
                   {% block navigation %}
                   <li><a id="home-menu" href="{% url 'home' %}" class="active-menu-item">HOME</a></li>
                   <li><a id="batch-menu" href="{% url 'new_batch' %}">BATCH</a></li>
-                     <li><a id="exam-menu" href="">ABOUT</a></li>
+                  <li><a id="exam-menu" href="{% url 'batchlist' %}">TAKE EXAM</a></li>
                      <li><a id="contact-menu" href="">CONTACT</a></li>
                   {% endblock navigation %}
                 </ul>

@@ -23,6 +23,16 @@ def test_batch_template(client):
 
 
 @pytest.mark.django_db
+def test_batchlist_template(client):
+    '''The correct template renders batchlist.'''
+    response = client.get('/question/batchlist/')
+    template_names = [i.name for i in response.templates]
+
+    assert 'question/batch_list.html' in template_names
+    assert 'base.html' in template_names
+
+
+@pytest.mark.django_db
 def test_batch_redirects_good_file_data(client, suf):
     '''The view redirects if data is good'''
     category = factories.Category()

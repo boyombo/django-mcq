@@ -1,0 +1,40 @@
+{% extends "plain.html" %}
+
+    {% block pageheader %}
+            <h3>Select Exams <i class="fa fa-angle-double-right "></i></h3>
+    {% endblock pageheader %}
+
+    {% block middle %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                {% if batches %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">Select Exam</div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                {% for batch in batches %}
+                                    <a href="" class="list-group-item">{{ batch }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+    {% endblock middle %}
+
+    {% block extra-js %}
+    <script type="text/javascript">
+        $('#id_name').attr('class','form-control');
+        $('#id_category').attr('class','form-control');
+
+        // Set active menu to batch
+        $('.active-menu-item').removeAttr('class','active-menu-item');
+        $('#exam-menu').attr('class','active-menu-item');
+    </script>
+    {% endblock extra-js %}
