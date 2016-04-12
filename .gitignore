@@ -4,8 +4,8 @@ __pycache__/
 *$py.class
 
 # media files
-media/question_dir/*
-*/*/*.xls
+media/
+
 # sqlite db
 *.sqlite3
 
