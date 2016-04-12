@@ -12,7 +12,7 @@
                 <div class="panel panel-default">
                         <div class="panel-body">
                             <h4>Exam: {{ exam }} ({{ exam.batch.category }})</h4>
-                            <h6>Duration: {{ exam.duration|default:"N/A" }}</h6>
+                            <h6>Duration: {{ exam.batch.duration|default:"N/A" }}</h6>
                             <h6>Number of questions: {{ exam.num_questions|default:"N/A" }}</h6>
                     </div>
                     <div class="panel-footer">

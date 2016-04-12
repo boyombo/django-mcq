@@ -11,6 +11,16 @@ def test_upload(suf, form_data):
     assert form.is_valid()
 
 
+@pytest.mark.django_db
+def test_duration_negative(suf, form_data):
+    form_data.update({'duration': -2})
+    form = BatchForm(form_data, {'question_file': suf})
+
+    assert not form.is_valid()
+    err_text = 'Ensure this value is greater than or equal to 0.'
+    assert err_text in form.errors['duration']
+
+
 #@pytest.mark.django_db
 #def test_upload_question_correct(suf, form_data):
 #    '''Validate that the content of cleaned_data is same as sent in file.'''

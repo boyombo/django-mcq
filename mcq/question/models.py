@@ -32,6 +32,7 @@ class Batch(models.Model):
     uploaded_on = models.DateTimeField(default=datetime.now)
     question_file = models.FileField(upload_to='question_dir')
     category = models.ForeignKey(Category)
+    duration = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Batches'
@@ -43,7 +44,7 @@ class Batch(models.Model):
 
 class Question(models.Model):
     text = models.CharField(max_length=250)
-    batch = models.ForeignKey(Batch)
+    batch = models.ForeignKey(Batch, related_name='questions')
 
     def __unicode__(self):
         return self.text

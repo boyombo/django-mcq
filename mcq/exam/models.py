@@ -18,6 +18,10 @@ class Exam(models.Model):
     def __unicode__(self):
         return unicode(self.batch)
 
+    @property
+    def num_questions(self):
+        return self.batch.questions.count()
+
 
 class Answer(models.Model):
     exam = models.ForeignKey(Exam, related_name='answers')
