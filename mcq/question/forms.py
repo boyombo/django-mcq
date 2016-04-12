@@ -1,24 +1,31 @@
 from django import forms
-from models import Batch
+from models import Batch, FIELD_NAMES
 
 from csv import DictReader
 
-FIELD_NAMES = [
-    'QUESTION',
-    'OPTION_A',
-    'OPTION_B',
-    'OPTION_C',
-    'OPTION_D',
-    'OPTION_E',
-    'CORRECT'
-]
-
 
 class BatchForm(forms.ModelForm):
-    model = Batch
-    exclude = ['uploaded_on']
+    #name = forms.CharField(
+    #    widget=forms.TextInput(attrs={'class': 'form-control'}))
+    #category = forms.ModelChoiceField(
+    #    widget=forms.ChoiceInput(attr={'css': 'form-control'}))
+
+    class Meta:
+        model = Batch
+        exclude = ['uploaded_on']
 
     def clean_question_file(self):
         if 'question_file' in self.cleaned_data:
-            questions = DictReader(self.cleaned_data['question_file'])
-        raise forms.ValidationError('no data')
+            fd = self.cleaned_data['question_file']
+            #import pdb;pdb.set_trace()
+            data = DictReader(fd)
+            try:
+                field_names = data.fieldnames
+            except:
+                raise forms.ValidationError(
+                    "The file is not in the correct format")
+            if set(FIELD_NAMES).difference(field_names):
+                raise forms.ValidationError("Some file headers are missing")
+            #headers = fd.
+            #return list(data)
+            return self.cleaned_data['question_file']
