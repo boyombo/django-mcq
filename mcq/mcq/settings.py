@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'question.apps.QuestionConfig',
+    'exam.apps.ExamConfig',
 ]
 
 MIDDLEWARE_CLASSES = [

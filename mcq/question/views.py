@@ -41,3 +41,8 @@ def new_batch(request):
     else:
         form = BatchForm()
     return render(request, 'question/batch.html', {'form': form})
+
+
+def batch_list(request):
+    batches = Batch.objects.all()
+    return render(request, 'question/batch_list.html', {'batches': batches})
