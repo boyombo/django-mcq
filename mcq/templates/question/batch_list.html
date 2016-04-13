@@ -15,7 +15,7 @@
                         <div class="panel-body">
                             <div class="list-group">
                                 {% for batch in batches %}
-                                <a href="{% url 'start_exam' batch.id %}" class="list-group-item">{{ batch }}</a>
+                                <a href="{% url 'start_exam' batch.id %}" class="list-group-item">{{ batch }} ({{ batch.category }})</a>
                                 {% endfor %}
                             </div>
                         </div>

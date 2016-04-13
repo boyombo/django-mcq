@@ -3,11 +3,13 @@
 {% block middle %}
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
             <div class="overlay text-center">
-                <a href="{% url 'new_batch' %}"><h3>Start Here</h3></a>
+                <h3><a href="{% url 'new_batch' %}" class="btn btn-primary btn-large btn-block">Start Here</a></h3>
             </div>
         </div>
+        <div class="col-md-3"></div>
     </div>
 </div>
 {% endblock middle %}
