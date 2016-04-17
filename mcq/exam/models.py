@@ -5,6 +5,14 @@ from django.db import models
 from question.models import Batch, Question, Option
 
 
+class NoQuestion(Exception):
+    pass
+
+
+class LastQuestion(Exception):
+    pass
+
+
 class Exam(models.Model):
     PENDING = 0
     STARTED = 1
@@ -22,6 +30,26 @@ class Exam(models.Model):
     def num_questions(self):
         return self.batch.questions.count()
 
+    @property
+    def first_question(self):
+        questions = Question.objects.filter(batch=self.batch).order_by('id')
+        if not questions:
+            raise NoQuestion
+        return questions[0]
+
+    def next_question(self, question_id=None):
+        '''Return the next question from the batch.'''
+        questions = Question.objects.filter(batch=self.batch).order_by('id')
+        if not questions:
+            raise NoQuestion
+        if question_id:
+            greater = [qtn for qtn in questions if qtn.id > int(question_id)]
+            if greater:
+                return greater[0]
+            else:
+                raise LastQuestion
+        return questions[0]
+
 
 class Answer(models.Model):
     exam = models.ForeignKey(Exam, related_name='answers')
@@ -30,3 +58,7 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return unicode(self.exam)
+
+    @property
+    def is_correct(self):
+        return self.selected.correct

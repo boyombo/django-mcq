@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'question/', include('question.urls')),
     url(r'exam/', include('exam.urls')),
-    url(r'', TemplateView.as_view(template_name='home.html'), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

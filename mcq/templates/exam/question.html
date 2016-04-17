@@ -6,27 +6,30 @@
 
     {% block middle %}
     <div class="container">
+        <form method='post' action=''>{% csrf_token %}
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h4>Exam: {{ exam }} ({{ exam.batch.category }})</h4>
-                            <h6>Duration: {{ exam.batch.duration|default:"N/A" }}</h6>
-                            <h6>Number of questions: {{ exam.num_questions }}</h6>
+                    <div class="panel-heading">
+                        {{ question.text }}
                     </div>
-                    <div class="panel-footer">
-                        {% if first_question %}
-                        <a href="{% url 'exam_question' exam.id first_question.id %}" 
-                            class="btn btn-primary btn-large btn-block active">Start</a>
-                        {% else %}
-                        <a href="#" class="btn btn-primary btn-large btn-block disabled">Start</a>
-                        {% endif %}
+                        <div class="panel-body">
+                                {{ form.option }}
                     </div>
                 </div>
+                        <div class="col-md-3">
+                            <a href="#" class="btn btn-primary btn-large btn-block">Back</a>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="submit" value="Next" class="btn btn-primary btn-large btn-block" />
+                        </div>
             </div>
             <div class="col-md-3"></div>
         </div>
+        </form>
     </div>
     {% endblock middle %}
 
