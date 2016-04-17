@@ -33,6 +33,19 @@ def test_duration_negative(suf, form_data):
 
 
 @pytest.mark.django_db
+def test_batch_correct_option(form_data):
+    '''At least one option must be correct per question.'''
+    data = 'QUESTION,A,B,C,D,E,CORRECT\n'\
+           'question1,one,two,three,four,five,F\n'\
+           'question2,aone,atwo,athree,afour,afive,C'
+    suf = SimpleUploadedFile('questions.csv', data, content_type='text/csv')
+    form = BatchForm(form_data, {'question_file': suf})
+
+    assert not form.is_valid()
+    assert 'Questions must have a valid option' in form.errors['question_file']
+
+
+@pytest.mark.django_db
 def test_batch_file_header(form_data):
     '''Validate that file contains all the required headers for the file'''
     data = 'QUESTION,OPTION_A,OPTION_B,OPTION_C,OPTION_D,OPTION_F,CORRECT\n'\

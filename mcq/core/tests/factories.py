@@ -35,3 +35,11 @@ class Exam(factory.django.DjangoModelFactory):
         model = exam.Exam
 
     batch = factory.SubFactory('core.tests.factories.Batch')
+
+
+class Option(factory.django.DjangoModelFactory):
+    class Meta:
+        model = question.Option
+
+    text = factory.fuzzy.FuzzyText()
+    question = factory.SubFactory('core.tests.factories.Question')

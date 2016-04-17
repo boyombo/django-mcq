@@ -20,11 +20,16 @@ class Exam(models.Model):
     EXAM_STATUS = enumerate((PENDING, STARTED, COMPLETED))
     batch = models.ForeignKey(Batch)
     start_at = models.DateTimeField(default=datetime.now)
-    ended_at = models.DateTimeField(default=datetime.now)
+    ended_at = models.DateTimeField(null=True, blank=True)
     status = models.PositiveIntegerField(choices=EXAM_STATUS, default=PENDING)
 
     def __unicode__(self):
         return unicode(self.batch)
+
+    def end(self):
+        self.ended_at = datetime.now()
+        self.status = self.COMPLETED
+        super(Exam, self).save()
 
     @property
     def num_questions(self):

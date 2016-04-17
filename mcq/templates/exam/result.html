@@ -1,0 +1,46 @@
+{% extends "plain.html" %}
+
+    {% block pageheader %}
+            <h3>Exam Result<i class="fa fa-angle-double-right "></i></h3>
+    {% endblock pageheader %}
+
+    {% block middle %}
+    <div class="container">
+        <form method='post' action=''>{% csrf_token %}
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h4>Exam: {{ exam }} ({{ exam.batch.category }})</h4>
+                            <h6>Duration: {{ exam.batch.duration|default:"N/A" }}</h6>
+                            <h6>Number of questions: {{ exam.num_questions }}</h6>
+                            <h6>Score: {{ exam.score }}</h6>
+                    </div>
+                    <div class="panel-footer">
+                        <input type="submit" href="{% url 'exam_end' exam.id %}" 
+                            class="btn btn-primary btn-large btn-block active" value="Submit" />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-primary btn-large btn-block">Back</a>
+                </div>
+                <div class="col-md-9"></div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </form>
+    </div>
+    {% endblock middle %}
+
+    {% block extra-js %}
+    <script type="text/javascript">
+        $('#id_name').attr('class','form-control');
+        $('#id_category').attr('class','form-control');
+
+        // Set active menu to batch
+        $('.active-menu-item').removeAttr('class','active-menu-item');
+        $('#exam-menu').attr('class','active-menu-item');
+    </script>
+    {% endblock extra-js %}

@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import Http404
-from question.models import Batch
+from django.shortcuts import render, get_object_or_404, redirect
+#from django.http import Http404
+from question.models import Batch, Question
 from exam.models import Exam, Answer, NoQuestion, LastQuestion
 from exam.forms import AnswerForm
 
@@ -18,14 +18,22 @@ def start(request, id):
         {'exam': exam, 'first_question': first_question})
 
 
-def get_question(request, exam_id, question_id=None):
-    # For the first Question 0 is passed as question_id
-    #import pdb;pdb.set_trace()
+def exam_result(request, exam_id):
     exam = get_object_or_404(Exam, pk=exam_id)
-    try:
-        question = exam.next_question(question_id)
-    except (NoQuestion, LastQuestion):
-        raise Http404
+    return render(request, 'exam/result.html', {'exam': exam})
+
+
+def end(request, exam_id):
+    exam = get_object_or_404(Exam, id=exam_id)
+    if request.method == 'POST':
+        exam.end()
+        return redirect(exam_result, exam_id=exam_id)
+    return render(request, 'exam/end.html', {'exam': exam})
+
+
+def get_question(request, exam_id, question_id):
+    exam = get_object_or_404(Exam, pk=exam_id)
+    question = get_object_or_404(Question, pk=question_id)
     if request.method == 'POST':
         form = AnswerForm(request.POST, question=question)
         #import pdb;pdb.set_trace()
@@ -35,6 +43,14 @@ def get_question(request, exam_id, question_id=None):
                 exam=exam, question=question)
             answer.selected = selected
             answer.save()
+
+            try:
+                next_question = exam.next_question(question_id)
+            except LastQuestion:
+                return redirect(end, exam_id=exam_id)
+            return redirect(
+                get_question, exam_id=exam_id, question_id=next_question.id)
+
     else:
         form = AnswerForm(question=question)
     return render(request, 'exam/question.html',

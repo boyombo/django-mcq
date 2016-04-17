@@ -3,9 +3,15 @@ from django.contrib import admin
 from question.models import Category, Batch, Question, Option
 
 
-@admin.register(Category, Batch, Question, Option)
+@admin.register(Category, Batch, Question)
 class QuestionAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Option)
+class OptionAdmin(admin.ModelAdmin):
+    list_display = ['label', 'text', 'correct', 'question']
+    list_filter = ['question__batch']
 
 
 #@admin.register(Batch)

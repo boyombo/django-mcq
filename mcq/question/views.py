@@ -18,11 +18,13 @@ def new_batch(request):
             data = DictReader(form.cleaned_data['question_file'])
             for line in data:
                 q_text = line.pop(QUESTION_NAME)
-                q = Question.objects.create(batch=batch, text=q_text)
+                q = Question.objects.create(batch=batch, text=q_text.strip())
                 correct = line.pop(CORRECT_NAME)
+                correct = correct.strip()
 
                 for k, v in line.items():
-                    #import pdb;pdb.set_trace()
+                    k = k.strip()
+                    v = v.strip()
                     opt_data = {
                         'label': k,
                         'text': v,

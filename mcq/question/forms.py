@@ -1,14 +1,10 @@
 from django import forms
-from models import Batch, FIELD_NAMES
+from models import Batch, FIELD_NAMES, CORRECT_NAME
 
 from csv import DictReader
 
 
 class BatchForm(forms.ModelForm):
-    #name = forms.CharField(
-    #    widget=forms.TextInput(attrs={'class': 'form-control'}))
-    #category = forms.ModelChoiceField(
-    #    widget=forms.ChoiceInput(attr={'css': 'form-control'}))
 
     class Meta:
         model = Batch
@@ -26,6 +22,9 @@ class BatchForm(forms.ModelForm):
                     "The file is not in the correct format")
             if set(FIELD_NAMES).difference(field_names):
                 raise forms.ValidationError("Some file headers are missing")
-            #headers = fd.
-            #return list(data)
+
+            options = [i[CORRECT_NAME].strip() for i in data]
+            if set(options).difference(FIELD_NAMES):
+                raise forms.ValidationError(
+                    "Questions must have a valid option")
             return self.cleaned_data['question_file']
